@@ -13,5 +13,13 @@
         public string? LaunchPath { get; set; }
 
         public string? RocketPath { get; set; }
+
+        public ApiType? ApiType { get; set; }
+    }
+
+    public enum ApiType
+    {
+        Rest = 0,
+        Graphql = 1,
     }
 }

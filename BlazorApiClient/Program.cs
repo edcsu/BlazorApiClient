@@ -12,8 +12,18 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 var config = builder.Configuration;
 var spaceXSettings = config.GetSpaceXSettings();
 
-//builder.Services.AddTransient<ISpaceXDataService, SpaceXDataService>();
-builder.Services.AddTransient<ISpaceXDataService, GraphqlSpaceXDataService>();
+// determine which API to use default is RESTAPI
+switch (spaceXSettings.ApiType)
+{
+    case ApiType.Graphql:
+        builder.Services.AddTransient<ISpaceXDataService, GraphqlSpaceXDataService>();
+        break;
+
+    case ApiType.Rest:
+    default:
+        builder.Services.AddTransient<ISpaceXDataService, SpaceXDataService>();
+        break;
+}
 
 builder.Services.AddHttpClient("SpaceX", httpClient =>
 {
