@@ -11,9 +11,9 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 var config = builder.Configuration;
 var spaceXSettings = config.GetSpaceXSettings();
 
-builder.Services.AddScoped(sp => new HttpClient 
-{ 
-    BaseAddress = new Uri(spaceXSettings.BaseUrl!) 
+builder.Services.AddHttpClient("SpaceX", httpClient =>
+{
+    httpClient.BaseAddress = new Uri(spaceXSettings.BaseUrl!);
 });
 
 await builder.Build().RunAsync();

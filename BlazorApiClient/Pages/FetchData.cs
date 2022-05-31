@@ -8,17 +8,19 @@ namespace BlazorApiClient.Pages
     public partial class FetchData
     {
         [Inject]
-        private HttpClient? Http { get; set; }
+        private IHttpClientFactory? httpClientFactory { get; set; }
         
         [Inject]
-        private IConfiguration configuration { get; set; }
+        private IConfiguration? configuration { get; set; }
 
         private LaunchDto[]? launchDtos;
 
         protected override async Task OnInitializedAsync()
         {
-            var spaceXSettings = configuration.GetSpaceXSettings();
-            launchDtos = await Http!.GetFromJsonAsync<LaunchDto[]>($"/{spaceXSettings.RestSegment}/{spaceXSettings.LaunchPath}");
+            var spaceXSettings = configuration!.GetSpaceXSettings();
+            var httpClient = httpClientFactory!.CreateClient("SpaceX");
+            launchDtos = await httpClient.GetFromJsonAsync<LaunchDto[]>(
+                $"/{spaceXSettings.RestSegment}/{spaceXSettings.LaunchPath}");
         }
     }
 }
