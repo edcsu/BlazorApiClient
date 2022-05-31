@@ -1,0 +1,40 @@
+﻿@page "/launches"
+
+<h1>SpaceX Launches</h1>
+
+@if (launchDtos is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Tentative</th>
+                <th>Launch Date (UTC)</th>
+                <th>Mission Name</th>
+                <th>Launch Site</th>
+                <th>Launch Success</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var launch in launchDtos)
+            {
+                <tr>
+                    <td>@launch.Id</td>
+                    <td>@launch.IsTentative</td>
+                    <td>@launch.LaunchDateUtc</td>
+                    <td>@launch.MissionName</td>
+                    <td>@launch.LaunchSite.SiteName</td>
+                    <td>@launch.LaunchSuccess</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+}
