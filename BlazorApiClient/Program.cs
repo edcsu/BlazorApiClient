@@ -1,5 +1,6 @@
 using BlazorApiClient;
 using BlazorApiClient.Config;
+using BlazorApiClient.Services.Data;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
@@ -10,6 +11,8 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 var config = builder.Configuration;
 var spaceXSettings = config.GetSpaceXSettings();
+
+builder.Services.AddTransient<ISpaceXDataService, SpaceXDataService>();
 
 builder.Services.AddHttpClient("SpaceX", httpClient =>
 {
