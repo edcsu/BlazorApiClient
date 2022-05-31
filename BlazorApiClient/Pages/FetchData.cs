@@ -1,4 +1,5 @@
-﻿using BlazorApiClient.Dtos;
+﻿using BlazorApiClient.Config;
+using BlazorApiClient.Dtos;
 using Microsoft.AspNetCore.Components;
 using System.Net.Http.Json;
 
@@ -8,12 +9,16 @@ namespace BlazorApiClient.Pages
     {
         [Inject]
         private HttpClient? Http { get; set; }
+        
+        [Inject]
+        private IConfiguration configuration { get; set; }
 
         private LaunchDto[]? launchDtos;
 
         protected override async Task OnInitializedAsync()
         {
-            launchDtos = await Http!.GetFromJsonAsync<LaunchDto[]>("https://api.spacex.land/rest/launches");
+            var spaceXSettings = configuration.GetSpaceXSettings();
+            launchDtos = await Http!.GetFromJsonAsync<LaunchDto[]>($"/{spaceXSettings.RestSegment}/{spaceXSettings.LaunchPath}");
         }
     }
 }
