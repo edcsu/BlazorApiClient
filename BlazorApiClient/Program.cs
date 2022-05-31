@@ -12,7 +12,8 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 var config = builder.Configuration;
 var spaceXSettings = config.GetSpaceXSettings();
 
-builder.Services.AddTransient<ISpaceXDataService, SpaceXDataService>();
+//builder.Services.AddTransient<ISpaceXDataService, SpaceXDataService>();
+builder.Services.AddTransient<ISpaceXDataService, GraphqlSpaceXDataService>();
 
 builder.Services.AddHttpClient("SpaceX", httpClient =>
 {

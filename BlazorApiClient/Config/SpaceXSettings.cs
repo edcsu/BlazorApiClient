@@ -8,6 +8,8 @@
 
         public string? RestSegment { get; set; }
 
+        public string? GraphqlSegment { get; set; }
+
         public string? LaunchPath { get; set; }
 
         public string? RocketPath { get; set; }
