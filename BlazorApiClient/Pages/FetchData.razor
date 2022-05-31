@@ -1,6 +1,4 @@
 ﻿@page "/fetchdata"
-@using BlazorApiClient.Dtos
-@inject HttpClient Http
 
 <PageTitle>SpaceX Launches</PageTitle>
 
@@ -8,7 +6,7 @@
 
 <p>This is launch data from space X REST API.</p>
 
-@if (launchDtos == null)
+@if (launchDtos is null)
 {
     <p><em>Loading...</em></p>
 }
@@ -39,13 +37,4 @@ else
             }
         </tbody>
     </table>
-}
-
-@code {
-    private LaunchDto[]? launchDtos;
-
-    protected override async Task OnInitializedAsync()
-    {
-        launchDtos = await Http.GetFromJsonAsync<LaunchDto[]>("https://api.spacex.land/rest/launches");
-    }
 }
