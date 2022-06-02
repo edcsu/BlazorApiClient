@@ -1,6 +1,9 @@
 using BlazorApiClient;
 using BlazorApiClient.Config;
 using BlazorApiClient.Services.Data;
+using GraphQL.Client.Abstractions;
+using GraphQL.Client.Http;
+using GraphQL.Client.Serializer.SystemTextJson;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
@@ -16,6 +19,8 @@ var spaceXSettings = config.GetSpaceXSettings();
 switch (spaceXSettings.ApiType)
 {
     case ApiType.Graphql:
+        builder.Services.AddScoped<IGraphQLClient>(s => new GraphQLHttpClient(spaceXSettings.BaseUrl!, new SystemTextJsonSerializer()));
+
         builder.Services.AddTransient<ISpaceXDataService, GraphqlSpaceXDataService>();
         break;
 
